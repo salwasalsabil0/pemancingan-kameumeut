@@ -10,5 +10,5 @@ class QueueSeeder extends Seeder
 {
     public function run()
     {
-
+    }
 }
