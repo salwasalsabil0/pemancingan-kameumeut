@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('field_data_id');
             $table->string('customer_name');
             $table->boolean('is_member')->default(false);
             $table->decimal('discount', 10, 2)->default(0);
