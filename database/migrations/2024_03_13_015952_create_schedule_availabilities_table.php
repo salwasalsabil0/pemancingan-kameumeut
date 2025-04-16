@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('booking_id');
             $table->date('schedule_date');
-            $table->foreignId('field_data_id');
             $table->foreignId('field_schedule_id');
             $table->boolean('is_available');
             $table->timestamps();
