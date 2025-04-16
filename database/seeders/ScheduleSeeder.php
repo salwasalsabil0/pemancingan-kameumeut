@@ -13,6 +13,13 @@ class ScheduleSeeder extends Seeder
      */
     public function run(): void
     {
+        FieldSchedule::create(['start_time' => '00:00:00', 'end_time' => '01:00:00', 'is_active' => true]);
+        FieldSchedule::create(['start_time' => '01:00:00', 'end_time' => '02:00:00', 'is_active' => true]);
+        FieldSchedule::create(['start_time' => '02:00:00', 'end_time' => '03:00:00', 'is_active' => true]);
+        FieldSchedule::create(['start_time' => '03:00:00', 'end_time' => '04:00:00', 'is_active' => true]);
+        FieldSchedule::create(['start_time' => '04:00:00', 'end_time' => '05:00:00', 'is_active' => true]);
+        FieldSchedule::create(['start_time' => '05:00:00', 'end_time' => '06:00:00', 'is_active' => true]);
+    
         FieldSchedule::create([
             'start_time' => '06:00:00',
             'end_time' => '07:00:00',
@@ -111,6 +118,11 @@ class ScheduleSeeder extends Seeder
         FieldSchedule::create([
             'start_time' => '22:00:00',
             'end_time' => '23:00:00',
+            'is_active' => true
+        ]);
+        FieldSchedule::create([
+            'start_time' => '23:00:00', 
+            'end_time' => '00:00:00', 
             'is_active' => true
         ]);
     }
