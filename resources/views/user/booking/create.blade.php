@@ -164,7 +164,7 @@
                     method: "GET",
                     data: {
                         schedule_play: selectedDate,
-                        field_data_id: fieldDataId
+                        field_id: fieldDataId
                     },
                     success: function(response) {
                         // Kosongkan area tampilan sebelum menambahkan data baru
