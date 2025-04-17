@@ -160,7 +160,7 @@ Route::middleware(['auth', 'inactivityTimeout:1800'])->group(function () {
             Route::get('/home', [IndexController::class, 'index'])->name('user.index');
             Route::get('/booking', [BookingController::class, 'chooseField'])->name('user.booking');
             Route::get('/booking/choose-field/{id}', [BookingController::class, 'create'])->name('user.bookingCreate');
-            Route::get('/user/booking/choose-field/all', [BookingController::class, 'chooseAllKiloJebur'])->name('user.booking.kiloJebur');
+            //Route::get('/user/booking/choose-field/all', [BookingController::class, 'chooseAllKiloJebur'])->name('user.booking.kiloJebur');
 
             //tambahan route
             //Route::get('/booking/choose-field', [BookingController::class, 'chooseField'])->name('booking.chooseField');
