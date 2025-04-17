@@ -63,7 +63,7 @@ class BookingController extends Controller
         return view('user.booking.chooseField', compact('fieldDatas'));
     }
 
-    public function create($id)
+    public function create(Request $request, $id)
     {
         $user = auth()->user();
         
@@ -86,13 +86,16 @@ class BookingController extends Controller
             $query->where('field_id', $field->id)
                 ->where('schedule_date', $schedule_play);
         }])->get();
+        
+        $type = $request->query('type'); // sekarang ini bisa digunakan!
 
         if ($user->role_id == 1) {
-            return view('admin.booking.create', compact('field', 'fieldSchedules', 'schedule_play','fish'));
+            return view('admin.booking.create', compact('field', 'fieldSchedules', 'schedule_play','fish','type'));
         } elseif ($user->role_id == 2) {
-            return view('user.booking.create', compact('field', 'fieldSchedules', 'schedule_play','fish'));
+            return view('user.booking.create', compact('field', 'fieldSchedules', 'schedule_play','fish','type'));
         }
     }
+
 
     public function chooseAllKiloJebur(Request $request)
     {
