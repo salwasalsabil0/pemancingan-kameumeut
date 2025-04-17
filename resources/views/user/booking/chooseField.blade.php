@@ -128,123 +128,81 @@
                 <div class="card p-3">
                     <div class="container" style="padding: 8px 15px;">
                         <div class="row">
-                            <div class="col-xl-10 offset-xl-1 ">
+                            <div class="col-xl-10 offset-xl-1">
                                 <h1>Kolam Kilo Jebur</h1>
                             </div> <!-- end of col -->
                         </div> <!-- end of row -->
-                    </div> <!-- end of container -->
-                    @php
-                        $lapakManual = [
-                            ['id' => 1, 'name' => 'J1'],
-                            ['id' => 2, 'name' => 'J2'],
-                            ['id' => 3, 'name' => 'J3'],
-                            ['id' => 4, 'name' => 'J4'],
-                            ['id' => 5, 'name' => 'J5'],
-                            ['id' => 6, 'name' => 'J6'],
-                            ['id' => 7, 'name' => 'J7'],
-                            ['id' => 8, 'name' => 'J8'],
-                            ['id' => 9, 'name' => 'J9'],
-                            ['id' => 10, 'name' => 'J10'],
-                            ['id' => 11, 'name' => 'J11'],
-                            ['id' => 12, 'name' => 'J12'],
-                        ];
-                    @endphp
-    
-                    {{-- 12 Data Pertama --}}
-                     <div class="row pb-3 justify-content-center">
-                        @foreach ($lapakManual as $data)
-                            <div class="col-lg-1 col-md-2 col-sm-3 col-4 mb-3">
-                                <div class="card h-100 border-0 shadow-sm text-center">
-                
-                                        {{--<div class="text-center" type="checkbox">
-                                            <a style="border-radius: 5px; width: auto; min-width: 80px; max-width: 100%;
-                                            padding: 30px 12px; white-space: nowrap; display: inline-block;" 
-                                            href="{{ route('user.bookingCreate', 
-                                            ['id' => 'all', 'type' => 'group']) }}" 
-                                            class="btn-solid-small">
-                                             Booking Semua Lapak J (1-24)
-                                            </a>
-                                              href="{{ route('user.bookingCreate', 
-                                            $data->id) }}" class="btn btn-secondary">  {{ $data->name }}</a>
-                                        </div> --}}
-                                        <div class="btn-group custom-btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                            <input type="checkbox" class="btn-check field-checkbox kilo-jebur"
-                                            id="btncheck2{{ $data['id'] }}" 
-                                            data-id="{{ $data['id'] }}" 
-                                            data-pond-type="kilo-jebur" 
-                                            autocomplete="off">
-                             
-                                     <label for="btncheck2{{ $data['id'] }}" class="btn custom-checkbox-label">
-                                         {{ $data['name'] }}
-                                     </label>
-                                        </div>
-                                          
-                                </div>
-                            
-                            </div>
-                        @endforeach
-                     </div>
-    
-                    <!-- GAMBAR KOLAM -->
-                    <nav class="navbar navbar-light text-center mt-0 mb-4" style="background-color: #B7B7B7;">
-                        <div class="container-fluid d-flex justify-content-center">
-                            <span class="navbar-brand mb-0 h1 text-white w-50 d-flex justify-content-between custom-title" 
-                            style="height: 20px; line-height: 0px; font-size: 15px;">
-                                <span>K</span> <span>O</span> <span>L</span> <span>A</span> <span>M</span>
-                            </span>
-                        </div>
-                    </nav>
-                {{-- 12 Data Berikutnya (Jika Ada) --}}
-                @php
-                    $lapakManual = [
-                        ['id' => 13, 'name' => 'J13'],
-                        ['id' => 14, 'name' => 'J14'],
-                        ['id' => 15, 'name' => 'J15'],
-                        ['id' => 16, 'name' => 'J16'],
-                        ['id' => 17, 'name' => 'J17'],
-                        ['id' => 18, 'name' => 'J18'],
-                        ['id' => 19, 'name' => 'J19'],
-                        ['id' => 20, 'name' => 'J20'],
-                        ['id' => 21, 'name' => 'J21'],
-                        ['id' => 22, 'name' => 'J22'],
-                        ['id' => 23, 'name' => 'J23'],
-                        ['id' => 24, 'name' => 'J24'],
-                    ];
-                @endphp
-                <div class="row pb-3 justify-content-center">
-                        @foreach ($lapakManual as $data)
-                            <div class="col-lg-1 col-md-2 col-sm-3 col-4 mb-3">
-                                <div class="card h-100 border-0 shadow-sm text-center">
-                                    {{--<div class="text-center">
-                                        <a style="border-radius: 5px; min-width: 80px; padding: 30px 12px; display: inline-block;"
-                                           href="{{ route('user.bookingCreate', $data->id) }}" 
-                                           class="btn btn-secondary">  
-                                           {{ $data->name }}
-                                        </a>
-                                    </div>--}}
-                                    <div class="btn-group custom-btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                        <input type="checkbox" class="btn-check field-checkbox kilo-jebur"
-                                        id="btncheck2{{ $data['id'] }}" 
-                                        data-id="{{ $data['id'] }}" 
-                                        data-pond-type="kilo-jebur" 
-                                        autocomplete="off">
-                         
-                                 <label for="btncheck2{{ $data['id'] }}" class="btn custom-checkbox-label">
-                                     {{ $data['name'] }}
-                                 </label>
-                                    </div>
+                        @php
+    $lapakKiloJebur = [];
+    for ($i = 1; $i <= 24; $i++) {
+        $lapakKiloJebur[] = ['id' => $i, 'name' => 'J'.$i];
+    }
+
+    $lapakAtas = array_slice($lapakKiloJebur, 0, 12);  // J1 - J12
+    $lapakBawah = array_slice($lapakKiloJebur, 12);    // J13 - J24
+@endphp
+
+<!-- 12 Lapak Pertama (di atas gambar kolam) -->
+<div class="row pb-3 justify-content-center">
+    @foreach ($lapakAtas as $data)
+        <div class="col-lg-1 col-md-2 col-sm-3 col-4 mb-3">
+            <div class="card h-100 border-0 shadow-sm text-center">
+                <div class="btn-group custom-btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    <input type="checkbox" class="btn-check field-checkbox kilo-jebur"
+                        id="btncheck2{{ $data['id'] }}"
+                        data-id="{{ $data['id'] }}"
+                        data-pond-type="kilo-jebur"
+                        autocomplete="off">
+                    <label for="btncheck2{{ $data['id'] }}" class="btn custom-checkbox-label">
+                        {{ $data['name'] }}
+                    </label>
+                </div>
             </div>
         </div>
     @endforeach
 </div>
-<div id="bookingMessage2" class="alert" style="display: none;"></div>
-            <hr style="border-top: 2px solid #000;">
-<!-- Tombol Book Now -->
-<div class="row pb-3 justify-content-center">
-    <div class="col-md-12 text-center">
-        <a id="bookNowBtn2" class="btn-solid-small" href="#" >Book Now</a>
+
+<!-- GAMBAR KOLAM -->
+<nav class="navbar navbar-light text-center mt-0 mb-4" style="background-color: #B7B7B7;">
+    <div class="container-fluid d-flex justify-content-center">
+        <span class="navbar-brand mb-0 h1 text-white w-50 d-flex justify-content-between custom-title" 
+              style="height: 20px; line-height: 0px; font-size: 15px;">
+            <span>K</span> <span>O</span> <span>L</span> <span>A</span> <span>M</span>
+        </span>
     </div>
-</div></div>
+</nav>
+
+<!-- 12 Lapak Kedua (di bawah gambar kolam) -->
+<div class="row pb-3 justify-content-center">
+    @foreach ($lapakBawah as $data)
+        <div class="col-lg-1 col-md-2 col-sm-3 col-4 mb-3">
+            <div class="card h-100 border-0 shadow-sm text-center">
+                <div class="btn-group custom-btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    <input type="checkbox" class="btn-check field-checkbox kilo-jebur"
+                        id="btncheck2{{ $data['id'] }}"
+                        data-id="{{ $data['id'] }}"
+                        data-pond-type="kilo-jebur"
+                        autocomplete="off">
+                    <label for="btncheck2{{ $data['id'] }}" class="btn custom-checkbox-label">
+                        {{ $data['name'] }}
+                    </label>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
+
+
+                <div id="bookingMessage2" class="alert" style="display: none;"></div>
+                            <hr style="border-top: 2px solid #000;">
+                <!-- Tombol Book Now -->
+                        <div class="row pb-3 justify-content-center">
+                            <div class="col-md-12 text-center">
+                                <a id="bookNowBtn2" class="btn-solid-small" href="#" >Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- Footer -->
     <header class="ex-header">
@@ -258,8 +216,13 @@
     </header> <!-- end of ex-header -->
     <!-- end of header -->
 @endsection
-
+@php
+    $firstKiloJebur = \App\Models\Field::where('pond_type_id', 2)->first();
+@endphp
 @section('script')
+<script>
+    let firstKiloJeburId = {{ $firstKiloJebur->id }};
+</script>
 <script> 
     
     //Kolam Kilo Angkat
@@ -306,80 +269,60 @@
 
     //Kolam Kilo Jebur (harus pilih semua lapak)
     document.addEventListener("DOMContentLoaded", function () {
-        const bookNowButton2 = document.getElementById("bookNowBtn2");
-        const messageBox = document.getElementById("bookingMessage2");     
-        const allKiloJeburBoxes = document.querySelectorAll('.btn-check[data-pond-type="kilo-jebur"]');
+    const bookNowBtn2 = document.getElementById("bookNowBtn2");
+    const messageBox = document.getElementById("bookingMessage2");
+    const kiloJeburBoxes = document.querySelectorAll('.btn-check[data-pond-type="kilo-jebur"]');
 
-        // ➤ Tambahkan event listener ke setiap checkbox kilo-jebur
-        allKiloJeburBoxes.forEach(box => {
-            box.addEventListener("change", function () {
-                const checkedCount = document.querySelectorAll('.btn-check[data-pond-type="kilo-jebur"]:checked').length;
+    // Tampilkan peringatan saat belum semua lapak dipilih
+    kiloJeburBoxes.forEach(box => {
+        box.addEventListener("change", () => {
+            const selectedCount = document.querySelectorAll('.btn-check[data-pond-type="kilo-jebur"]:checked').length;
+            const totalCount = kiloJeburBoxes.length;
 
-                if (checkedCount < allKiloJeburBoxes.length) {
-                    messageBox.innerHTML = `Klik 'Book Now' untuk  memilih semua lapak (${allKiloJeburBoxes.length} lapak) untuk melanjutkan!`;
-                    messageBox.classList.add("alert");
-                    messageBox.style.display = "block";
-                } else {
-                    messageBox.style.display = "none";
-                    messageBox.classList.remove("alert");
-                }
-            });
-        });
-
-        // ➤ Event untuk tombol Book Now
-        bookNowButton2.addEventListener("click", function (event) {
-            event.preventDefault(); // Mencegah redirect sebelum validasi
-
-            // Ambil semua checkbox dengan data-field-type="kilo-jebur"
-            //const allKiloJeburBoxes = document.querySelectorAll('.btn-check[data-pond-type="kilo-jebur"]');
-            //const checkedBoxes2 = document.querySelectorAll('.btn-check[data-pond-type="kilo-jebur"]:checked');
-
-            // Ambil semua checkbox kilo-jebur
-            const allKiloJeburBoxes = document.querySelectorAll('.btn-check[data-pond-type="kilo-jebur"]');
-
-            // Otomatis centang semua lapak
-            allKiloJeburBoxes.forEach(box => {
-                box.checked = true;
-            });
-
-            // Ambil ulang semua yang dicentang
-            const checkedBoxes2 = document.querySelectorAll('.btn-check[data-pond-type="kilo-jebur"]:checked');
-
-            // Reset pesan sebelumnya
-            messageBox.style.display = "none";
-            messageBox.classList.remove("alert");
-
-            if (checkedBoxes2.length === 0) {
-                messageBox.innerHTML = "Silakan pilih lapak terlebih dahulu!";
-                messageBox.classList.add("alert");
-                messageBox.style.display = "block";
-            //} else if (checkedBoxes2.length > 1) {
-            //    messageBox.innerHTML = "Hanya boleh booking 1 lapak saja!";
-                
-            } else if (checkedBoxes2.length < allKiloJeburBoxes.length) {
-                messageBox.innerHTML = `Anda harus memilih semua lapak (${allKiloJeburBoxes.length} lapak) untuk melanjutkan!`;
-                messageBox.classList.add("alert");
-                messageBox.style.display = "block";
+            if (selectedCount < totalCount) {
+                showMessage(`Klik 'Book Now' untuk memilih semua lapak (${totalCount} lapak) untuk melanjutkan!`);
             } else {
-                // Ambil ID lapak yang dipilih
-                //const lapakId = checkedBoxes2[0].id.replace("btncheck2", ""); // Ambil ID dari checkbox
-
-                // Semua lapak sudah dipilih
-                sessionStorage.setItem("bookingSuccess", "true");
-
-                // Redirect setelah 1.5 detik agar pesan terlihat
-                setTimeout(() => {
-                    //window.location.href = `/user/booking/choose-field/${lapakId}?type=single`;
-                    //window.location.href = `/user/booking/choose-field/all?kilo-angkat=true`;
-                    window.location.href = "{{ route('user.booking.kiloJebur') }}";
-                }, 1500);
+                hideMessage();
             }
         });
     });
 
-    
+    // Klik tombol Book Now
+    bookNowBtn2.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        // Centang semua lapak otomatis
+        kiloJeburBoxes.forEach(box => box.checked = true);
+
+        const selectedCount = document.querySelectorAll('.btn-check[data-pond-type="kilo-jebur"]:checked').length;
+        const totalCount = kiloJeburBoxes.length;
+
+        if (selectedCount < totalCount) {
+            showMessage(`Anda harus memilih semua lapak (${totalCount} lapak) untuk melanjutkan!`);
+        } else {
+            hideMessage();
+            sessionStorage.setItem("bookingSuccess", "true");
+            // Ambil ID dari lapak pertama bertipe kilo-jebur
+            const lapakId = firstKiloJeburId;
+            setTimeout(() => {
+                window.location.href = `/user/booking/choose-field/${lapakId}?type=kilo-jebur`;
+            }, 1500);
+        }
+    });
+
+
+    function showMessage(message) {
+        messageBox.innerHTML = message;
+        messageBox.classList.add("alert");
+        messageBox.style.display = "block";
+    }
+
+    function hideMessage() {
+        messageBox.style.display = "none";
+        messageBox.classList.remove("alert");
+        messageBox.innerHTML = "";
+    }
+});
+
 </script>
-
-
-
 @endsection
