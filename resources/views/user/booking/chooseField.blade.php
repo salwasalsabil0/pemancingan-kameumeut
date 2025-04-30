@@ -1,5 +1,9 @@
 @extends('user.layouts.main')
 @section('content')
+@php
+    use Carbon\Carbon;
+    $tanggalHariIni = Carbon::now()->locale('id')->isoFormat('dddd, D MMMM YYYY');
+@endphp
 
     <!-- Header -->
     <header class="ex-header"style="padding: 20px 15px; ">
@@ -109,6 +113,16 @@
         <a id="bookNowBtn1" class="btn-solid-small" href="#" >Book Now</a>
     </div>
 </div>
+<!-- Informasi Jadwal Kosong -->
+<div class="row pb-3 justify-content-center">
+    <div class="col-md-10 text-center">
+        <div id="jadwalInfo" class="mt-3" style="display:none;">
+            <h6>Jadwal Tersedia Hari Ini: {{ $tanggalHariIni }}</h6>
+            <div id="jadwalList" class="jadwal-grid"></div>
+        </div>        
+    </div>
+</div>
+
 </div>
         </div>
             @endif
@@ -202,6 +216,15 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Informasi Jadwal Kosong Kilo Jebur-->
+<div class="row pb-3 justify-content-center">
+    <div class="col-md-10 text-center">
+        <div id="jadwalInfo2" class="mt-3">
+            <h6>Jadwal Tersedia Hari Ini: {{ $tanggalHariIni }}</h6>
+            <div id="jadwalList2" class="jadwal-grid"></div>
+        </div>        
+    </div>
+</div>
                 </div>
             </div>
             <!-- Footer -->
@@ -224,7 +247,43 @@
     let firstKiloJeburId = {{ $firstKiloJebur->id }};
 </script>
 <script> 
-    
+    // Menampilkan jadwal kosong saat satu lapak kilo-angkat dipilih
+    document.querySelectorAll('.btn-check[data-pond-type="kilo-angkat"]').forEach(button => {
+    button.addEventListener('change', function () {
+        const fieldId = this.getAttribute('data-id');
+        const jadwalInfo = document.getElementById('jadwalInfo');
+        const jadwalList = document.getElementById('jadwalList');
+
+        // Reset tampilan
+        jadwalList.innerHTML = '';
+        jadwalInfo.style.display = 'none';
+
+        // Hanya jalankan kalau dipilih
+        if (this.checked) {
+            fetch(`/user/booking/get-available-schedule/${fieldId}?type=single`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length === 0) {
+                        jadwalList.innerHTML = 'FULL BOOKED.';
+                    } else {
+                        data.forEach(item => {
+                            const waktu = item.start_time.slice(0, 5) + ' - ' + item.end_time.slice(0, 5);
+                            jadwalList.innerHTML += `<div class="jadwal-item">
+            <i class="bi bi-clock"></i> ${waktu}
+        </div>`;
+                        });
+                    }
+                    jadwalInfo.style.display = 'block';
+                })
+                .catch(error => {
+                    jadwalList.innerHTML = 'Gagal memuat jadwal.';
+                    jadwalInfo.style.display = 'block';
+                });
+        }
+    });
+});
+
+
     //Kolam Kilo Angkat
     document.addEventListener("DOMContentLoaded", function () {
         const bookNowButton1 = document.getElementById("bookNowBtn1");
@@ -266,6 +325,44 @@
             }
         });
     });
+
+
+    // Menampilkan jadwal kosong lapak kilo-jebur
+    document.addEventListener('DOMContentLoaded', function () {
+    const jadwalList2 = document.getElementById('jadwalList2');
+
+    // Ambil fieldId pertama bertipe kilo-jebur
+    fetch('/user/booking/get-first-kilo-jebur-id')
+        .then(response => response.json())
+        .then(field => {
+            const fieldId = field.id;
+
+            return fetch(`/user/booking/get-available-schedule/${fieldId}?type=kilo-jebur`);
+        })
+        .then(response => response.json())
+        .then(data => {
+            jadwalList2.innerHTML = '';
+
+            if (!data || data.length === 0) {
+                jadwalList2.innerHTML = 'FULL BOOKED.';
+                return;
+            }
+
+            data.forEach(item => {
+                const waktu = item.start_time.slice(0, 5) + ' - ' + item.end_time.slice(0, 5);
+                jadwalList2.innerHTML += `
+                    <div class="jadwal-item">
+                        <i class="bi bi-clock"></i> ${waktu}
+                    </div>`;
+            });
+        })
+        .catch(error => {
+            console.error('Error memuat jadwal:', error);
+            jadwalList2.innerHTML = 'Gagal memuat jadwal.';
+        });
+});
+
+
 
     //Kolam Kilo Jebur (harus pilih semua lapak)
     document.addEventListener("DOMContentLoaded", function () {
