@@ -31,7 +31,7 @@
 
     {{-- Custom CSS --}}
     <link href="{{ asset('userLib2/css/swiper.css') }}" rel="stylesheet">
-    <link href="{{ asset('userLib2/css/styles.css') }}" rel="stylesheet">
+    <link href="{{ asset('userLib2/css/styles.css') }}?v={{ time() }}" rel="stylesheet">
 
     <!-- Favicon  -->
     <link rel="icon" href="{{ asset('img/logoP.png') }}">
