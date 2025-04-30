@@ -160,6 +160,13 @@ Route::middleware(['auth', 'inactivityTimeout:1800'])->group(function () {
             Route::get('/home', [IndexController::class, 'index'])->name('user.index');
             Route::get('/booking', [BookingController::class, 'chooseField'])->name('user.booking');
             Route::get('/booking/choose-field/{id}', [BookingController::class, 'create'])->name('user.bookingCreate');
+            Route::get('/booking/get-available-schedule/{id}', [BookingController::class, 'getAvailableSchedule']);
+            
+            Route::get('/booking/get-first-kilo-jebur-id', function () {
+                $firstField = \App\Models\Field::where('pond_type_id', '2')->orderBy('id')->first();
+                return response()->json(['id' => $firstField->id]);
+            });
+            
             //Route::get('/user/booking/choose-field/all', [BookingController::class, 'chooseAllKiloJebur'])->name('user.booking.kiloJebur');
 
             //tambahan route
