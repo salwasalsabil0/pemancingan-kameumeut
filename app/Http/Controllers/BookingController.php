@@ -132,6 +132,28 @@ class BookingController extends Controller
     }
     }
 
+    public function getAvailableSchedule($fieldId)
+{
+    $today = Carbon::today()->toDateString();
+
+    // Ambil semua jadwal aktif
+    $schedules = FieldSchedule::where('is_active', true)->get();
+
+    // Ambil jadwal yang sudah dibooking (is_available = false) pada tanggal hari ini
+    $bookedScheduleIds = ScheduleAvailability::where('field_id', $fieldId)
+        ->where('schedule_date', $today)
+        ->where('is_available', false)
+        ->pluck('field_schedule_id')
+        ->toArray();
+
+    // Filter hanya jadwal yang belum dibooking
+    $availableSchedules = $schedules->filter(function ($schedule) use ($bookedScheduleIds) {
+        return !in_array($schedule->id, $bookedScheduleIds);
+    })->values();
+
+    return response()->json($availableSchedules);
+}
+
     public function checkAvailability(Request $request)
     {
         $selectedDate = $request->schedule_play;
